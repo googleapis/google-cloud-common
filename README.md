@@ -8,11 +8,11 @@ Get up and running with your Google Cloud Platform client library.
   - Python - [gcloud-python](https://github.com/googlecloudplatform/gcloud-python)
   - Ruby - [gcloud-ruby](https://github.com/googlecloudplatform/gcloud-ruby)
 
-#### [Authorization Guide](authorization/readme.md)
+### [Authorization Guide](authorization/readme.md)
 
 How to enable the correct APIs for your project, create a service account, generate a JSON key, and more.
 
-#### [Frequently Asked Questions](faq/readme.md)
+### [Frequently Asked Questions](faq/readme.md)
 
 Common questions about using the gcloud client libraries, including:
 
