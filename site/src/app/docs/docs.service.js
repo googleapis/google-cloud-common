@@ -14,6 +14,8 @@
       if (method.metadata) {
         method.metadata.description = $sce.trustAsHtml(method.metadata.description);
         method.metadata.isConstructor = method.metadata.constructor === true;
+        method.metadata.anchor = getMethodAnchor(method.metadata);
+        method.metadata.typeSymbol = getMethodTypeSymbol(method.metadata.type);
 
         if (method.metadata.examples) {
           method.metadata.examples = method.metadata.examples.map(trustExample);
@@ -65,6 +67,22 @@
       param.description = $sce.trustAsHtml(param.description);
 
       return param;
+    }
+
+    function getMethodAnchor(metadata) {
+      var anchor = metadata.name;
+      if (metadata.type) {
+        anchor += "-type-" + metadata.type;
+      }
+      return anchor;
+    }
+
+    function getMethodTypeSymbol(type) {
+      var typeSymbol = "#";
+      if (type === "class") {
+        typeSymbol = ".";
+      }
+      return typeSymbol;
     }
 
     return {

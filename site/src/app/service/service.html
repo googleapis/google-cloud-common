@@ -30,9 +30,9 @@
   </article>
   <article ng-repeat="method in service.methods">
     <h2 ng-if="method.metadata.isConstructor">{{::method.metadata.name}}</h2>
-    <h3 id="{{::method.metadata.name}}" ng-if="!method.metadata.isConstructor" class="method-heading">
-      <a class="permalink" ui-sref="docs.service({ method: method.metadata.name })">
-        <span>#</span>
+    <h3 id="{{::method.metadata.anchor}}" ng-if="!method.metadata.isConstructor" class="method-heading">
+      <a class="permalink" ui-sref="docs.service({ method: method.metadata.anchor })">
+        <span>{{::method.metadata.typeSymbol}}</span>
         {{::method.metadata.name}}
       </a>
     </h3>
