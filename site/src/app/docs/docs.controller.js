@@ -9,6 +9,7 @@
   function DocsCtrl($state, langs, manifest, toc, lastBuiltDate) {
     var docs = this;
 
+    docs.libraryTitle = manifest.libraryTitle || 'gcloud';
     docs.langs = langs;
     docs.lastBuiltDate = lastBuiltDate;
     docs.guides = toc.guides;
@@ -34,6 +35,7 @@
     }
 
     function isActive(serviceId) {
+      serviceId = serviceId.split('/')[0];
       return !!($state.params.serviceId || '').match(serviceId);
     }
 

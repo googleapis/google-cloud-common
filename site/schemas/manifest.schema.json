@@ -12,6 +12,16 @@
       "type": "string",
       "description": "User friendly name of language, may be used as page title."
     },
+    "libraryTitle": {
+      "id": "libraryTitle",
+      "type": "string",
+      "description": "The library's title."
+    },
+    "defaultService": {
+      "id": "defaultService",
+      "type": "string",
+      "description": "Custom service type to load by default."
+    },
     "markdown": {
       "id": "markdown",
       "type": "string",

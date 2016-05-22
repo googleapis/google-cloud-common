@@ -5,6 +5,7 @@ Get up and running with your Google Cloud Platform client library.
   - Go - [gcloud-golang](https://github.com/googlecloudplatform/gcloud-golang)
   - Java - [gcloud-java](https://github.com/googlecloudplatform/gcloud-java)
   - Node.js - [gcloud-node](https://github.com/googlecloudplatform/gcloud-node)
+  - PHP - [gcloud-php](https://github.com/googlecloudplatform/gcloud-php)
   - Python - [gcloud-python](https://github.com/googlecloudplatform/gcloud-python)
   - Ruby - [gcloud-ruby](https://github.com/googlecloudplatform/gcloud-ruby)
 

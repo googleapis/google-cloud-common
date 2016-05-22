@@ -6,7 +6,7 @@
     .controller('ServiceCtrl', ServiceCtrl);
 
   /** @ngInject */
-  function ServiceCtrl($scope, $state, DeeplinkService, DocsService, serviceObject) {
+  function ServiceCtrl($scope, $state, DeeplinkService, DocsService, serviceObject, manifest) {
     var service = this;
 
     angular.extend(service, DocsService.setAsTrusted(serviceObject));
@@ -15,6 +15,7 @@
       .map(DocsService.setAsTrusted)
       .sort(sortMethods);
 
+    service.libraryTitle = manifest.libraryTitle || 'gcloud';
     service.methodNames = service.methods.map(getName);
     service.showGettingStarted = false;
 

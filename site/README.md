@@ -120,6 +120,26 @@ This is the user-friendly version of your language name, in some cases it may be
 }
 ```
 
+##### `libraryTitle` key
+
+*This key is completely optional*. Used for displaying the library title to users. Defaults to `gcloud` if not provided.
+
+```js
+{
+  "libraryTitle": "the Google Cloud Client Library"
+}
+```
+
+##### `defaultService` key
+
+*This key is completely optional*. The custom service type to load by default. Defaults to `gcloud` if not provided.
+
+```js
+{
+  "defaultService": "servicebuilder"
+}
+```
+
 ##### `markdown` key
 
 The Angular app currently leverages a code highlighting library called [highlightjs][hljs]. The `markdown` field specifies the flavor of syntax highlighting to use.

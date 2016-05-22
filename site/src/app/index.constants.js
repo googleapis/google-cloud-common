@@ -12,6 +12,9 @@
       friendly: 'Node.js',
       key: 'node'
     }, {
+      friendly: 'PHP',
+      key: 'php'
+    }, {
       friendly: 'Python',
       key: 'python'
     }, {

@@ -11,6 +11,7 @@
     var regSemver = '\\bv?(?:0|[1-9][0-9]*)\\.(?:0|[1-9][0-9]*)\\.(?:0|[1-9][0-9]*)(?:-[\\da-z\-]+(?:\\.[\\da-z\\-]+)*)?(?:\\+[\\da-z\\-]+(?:\\.[\\da-z\\-]+)*)?\\b';
     var baseVersionUrl = '/docs/{version:master|' + regSemver + '}';
     var latestVersion = manifest.versions[0];
+    var defaultService = manifest.defaultService || 'gcloud';
 
     $urlMatcherFactoryProvider.type('nonURIEncoded', {
       encode: toString,
@@ -58,7 +59,7 @@
       });
 
     $urlRouterProvider.when('/docs', '/docs/latest');
-    $urlRouterProvider.when(baseVersionUrl, '/docs/:version/gcloud');
+    $urlRouterProvider.when(baseVersionUrl, '/docs/:version/' + defaultService);
 
     $urlRouterProvider.otherwise(function($injector, $location) {
       var path = $location.path();

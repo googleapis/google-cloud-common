@@ -1,12 +1,18 @@
 <article class="main lang-page" role="main">
   <header class="page-header fixed" role="banner">
-    <h1 class="logo">
-      <a href="." title="Home">
-        <img src="assets/images/logo.svg" alt="Google Cloud Platform">
-        <span class="gcloud">gcloud</span>
-      </a>
-    </h1>
-    <div language-switcher></div>
+    <div class="row">
+      <div class="col">
+        <h1 class="logo">
+          <a href="." title="Home">
+            <img src="assets/images/logo.svg" alt="Google Cloud Platform">
+            <span class="gcloud">{{docs.libraryTitle}}</span>
+          </a>
+        </h1>
+      </div>
+      <div class="col">
+        <div language-switcher></div>
+      </div>
+    </div>
     <div class="header--right">
       <a ng-href="https://github.com/GoogleCloudPlatform/gcloud-{{::lang}}/issues/new" class="v-btn skip-external-link">
         <img src="assets/images/icon-link-github.svg">
