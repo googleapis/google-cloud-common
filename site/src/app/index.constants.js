@@ -6,20 +6,29 @@
     .module('gcloud')
     .constant('hljs', hljs)
     .constant('langs', [{
+      friendly: '.NET',
+      key: 'dotnet',
+      repo: 'google-cloud-dotnet'
+    }, {
       friendly: 'Java',
-      key: 'java'
+      key: 'java',
+      repo: 'gcloud-java'
     }, {
       friendly: 'Node.js',
-      key: 'node'
+      key: 'node',
+      repo: 'gcloud-node'
     }, {
       friendly: 'PHP',
-      key: 'php'
+      key: 'php',
+      repo: 'gcloud-php'
     }, {
       friendly: 'Python',
-      key: 'python'
+      key: 'python',
+      repo: 'gcloud-python'
     }, {
       friendly: 'Ruby',
-      key: 'ruby'
+      key: 'ruby',
+      repo: 'gcloud-ruby'
     }]);
 
 }());

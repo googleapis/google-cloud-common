@@ -53,8 +53,8 @@
       </li>
       <li ng-repeat="lang in switcher.langs">
         <a
-          ng-href="https://googlecloudplatform.github.io/gcloud-{{::lang.key}}"
-          ng-attr-title="gcloud-{{::lang.key}}"
+          ng-href="https://googlecloudplatform.github.io/{{::lang.repo}}"
+          ng-attr-title="{{::lang.repo}}"
           class="skip-external-link">
           <img
             ng-src="assets/images/icon-lang-{{::lang.key}}.svg"
