@@ -8,6 +8,8 @@
 * [Manifest][manifest]
   * [`lang`][lang-key]
   * [`friendlyLang`][friendlylang-key]
+  * [`libraryTitle`][librarytitle-key]
+  * [`defaultService`][defaultservice-key]
   * [`markdown`][markdown-key]
   * [`titleDelimiter`][delimiter-key]
   * [`versions`][versions-key]
@@ -526,6 +528,8 @@ Please refer to gcloud-node's [`gh-pages` branch][gcloud-node-ghpages] for an ex
 [manifest]: #manifest
 [lang-key]: #lang-key
 [friendlylang-key]: #friendlylang-key
+[librarytitle-key]: #librarytitle-key
+[defaultservice-key]: #defaultservice-key
 [markdown-key]: #markdown-key
 [delimiter-key]: #titledelimiter-key
 [versions-key]: #versions-key
