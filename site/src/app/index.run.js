@@ -15,7 +15,7 @@
 
       $state.go('docs.service', {
         version: $state.params.version,
-        serviceId: 'gcloud'
+        serviceId: manifest.defaultService || 'gcloud'
       });
     });
   }
