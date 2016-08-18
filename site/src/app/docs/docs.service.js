@@ -51,7 +51,10 @@
     }
 
     function trustReturn(returnValue) {
-      return $sce.trustAsHtml(returnValue.types.join(', '));
+      return $sce.trustAsHtml([
+        returnValue.types.join(', '),
+        returnValue.description
+      ].join(''));
     }
 
     function trustExample(example) {
