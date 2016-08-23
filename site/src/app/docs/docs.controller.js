@@ -38,7 +38,6 @@
     }
 
     function isActive(serviceId) {
-      serviceId = serviceId.split('/')[0];
       return !!($state.params.serviceId || '').match(serviceId);
     }
 
