@@ -38,7 +38,13 @@
     }
 
     function isActive(serviceId) {
-      return !!($state.params.serviceId || '').match(serviceId);
+      var serviceIdParam = $state.params.serviceId || '';
+      var isCompleteMatch = !!serviceIdParam.match(serviceId);
+
+      var partialServiceId = serviceId.split('/')[0];
+      var isPartialMatch = !!serviceIdParam.match(partialServiceId);
+
+      return isCompleteMatch || isPartialMatch;
     }
 
     function getGuideUrl(page) {
