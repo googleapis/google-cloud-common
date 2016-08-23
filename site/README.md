@@ -20,6 +20,7 @@
   * [`moduleName`][modulename-key]
   * [`defaultModule`][defaultmodule-key]
   * [`modules`][modules-key]
+  * [`matchPartialServiceId`][partialserviceid-key]
 * [Table of Contents][toc]
   * [`overview`][overview-key]
   * [`guides`][guides-key]
@@ -278,6 +279,20 @@ This field is only needed when using modular docs. When present it should contai
       ]
     }
   ]
+}
+```
+
+#### `matchPartialServiceId`
+
+This is used for determining the logic used for collapsing and expanding the API navigation. By default any pages nested within a service `/bigquery/job` will check to see if the parent url is present within the nested url. If you decide to use a different URL layout, then you can set `matchPartialServiceId` to `true` and it will only checkout against the first item within the parent url.
+
+Consider the following example:
+
+If we're creating routes for our BigQuery service and instead of making the default page `/bigquery` we want to make it `/bigquery/client` - how do we know if something like `/bigquery/job` is a parent or sibling page to `/bigquery/client`? By setting `matchPartialServiceId` it will not check against the entire parent url - but instead just the first parameter within it.
+
+```js
+{
+  "matchPartialServiceId": true
 }
 ```
 
@@ -612,6 +627,7 @@ Please refer to gcloud-node's [`gh-pages` branch][gcloud-node-ghpages] for an ex
 [modulename-key]: #modulename-key
 [defaultmodule-key]: #defaultmodule-key
 [modules-key]: #modules-key
+[partialserviceid-key]: #matchpartialserviceid
 [json-schema]: #json-docs-schema
 [id-key]: #id-key
 [description-keys]: #description-and-caption-keys
