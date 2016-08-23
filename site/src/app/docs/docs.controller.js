@@ -39,12 +39,13 @@
 
     function isActive(serviceId) {
       var serviceIdParam = $state.params.serviceId || '';
-      var isCompleteMatch = !!serviceIdParam.match(serviceId);
+
+      if (!manifest.matchPartialServiceId) {
+        return !!serviceIdParam.match(serviceId);
+      }
 
       var partialServiceId = serviceId.split('/')[0];
-      var isPartialMatch = !!serviceIdParam.match(partialServiceId);
-
-      return isCompleteMatch || isPartialMatch;
+      return !!serviceIdParam.match(partialServiceId);
     }
 
     function getGuideUrl(page) {
