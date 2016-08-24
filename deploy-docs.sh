@@ -78,3 +78,4 @@ function deploy_docs {
 
 deploy_docs "googlecloudplatform/google-cloud-node"
 deploy_docs "googlecloudplatform/gcloud-python"
+deploy_docs "googlecloudplatform/gcloud-ruby"
