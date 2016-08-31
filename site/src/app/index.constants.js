@@ -12,7 +12,7 @@
     }, {
       friendly: 'Java',
       key: 'java',
-      repo: 'gcloud-java'
+      repo: 'google-cloud-java'
     }, {
       friendly: 'Node.js',
       key: 'node',
@@ -28,7 +28,7 @@
     }, {
       friendly: 'Ruby',
       key: 'ruby',
-      repo: 'gcloud-ruby'
+      repo: 'google-cloud-ruby'
     }]);
 
 }());
