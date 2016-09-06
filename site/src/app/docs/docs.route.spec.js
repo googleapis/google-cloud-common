@@ -25,7 +25,10 @@
             modules: [{
               id: DEFAULT_MOD,
               defaultService: DEFAULT_MOD,
-              versions: [ LATEST ]
+              versions: [
+                LATEST,
+                '0.38.0'
+              ]
             }]
           });
         });
@@ -70,6 +73,13 @@
       it('should redirect the user from a bad version to 404', function() {
         goTo('/docs/google-cloud/v0.1.0');
         expect($location.path()).toBe('/docs/google-cloud/v0.39.0/not-found');
+      });
+
+      it('should strip the "v" from the version if need be', function() {
+        goTo('/docs/google-cloud/v0.38.0');
+
+        expect($location.path())
+          .toBe('/docs/google-cloud/0.38.0');
       });
 
       it('should send the user to the default service', function() {
