@@ -1,14 +1,16 @@
 (function() {
   'use strict';
 
+  // source: https://github.com/sindresorhus/semver-regex
+  var regSemver = '\\bv?(?:0|[1-9][0-9]*)\\.(?:0|[1-9][0-9]*)\\.(?:0|[1-9][0-9]*)(?:-[\\da-z\-]+(?:\\.[\\da-z\\-]+)*)?(?:\\+[\\da-z\\-]+(?:\\.[\\da-z\\-]+)*)?\\b';
+  var notFoundUrl = 'not-found';
+
   angular
     .module('gcloud')
     .config(docsRoutes);
 
   /** @ngInject */
   function docsRoutes($stateProvider, $urlRouterProvider, $urlMatcherFactoryProvider, manifest) {
-    // source: https://github.com/sindresorhus/semver-regex
-    var regSemver = '\\bv?(?:0|[1-9][0-9]*)\\.(?:0|[1-9][0-9]*)\\.(?:0|[1-9][0-9]*)(?:-[\\da-z\-]+(?:\\.[\\da-z\\-]+)*)?(?:\\+[\\da-z\\-]+(?:\\.[\\da-z\\-]+)*)?\\b';
     var regPackage = '(?!master|\\d).*';
 
     var baseUrl = '/docs/' +
@@ -55,6 +57,11 @@
           version: 'latest',
           module: manifest.defaultModule
         }
+      })
+      .state('docs.notfound', {
+        url: '/' + notFoundUrl,
+        templateUrl: 'app/not-found/not-found.html',
+        controller: 'NotFoundCtrl'
       })
       .state('docs.guides', {
         url: '/guides/:guideId?section',
@@ -216,62 +223,90 @@
   }
 
   function getDefaultModuleParams(params, manifest, $injector) {
-    var module = $injector.get('util').findWhere(manifest.modules, {
+    var util = $injector.get('util');
+    var regVersion = new RegExp('master|latest|stable|' + regSemver);
+    var defaultModule = util.findWhere(manifest.modules, {
+      id: manifest.defaultModule
+    });
+    var latestDefaultVersion = defaultModule.versions[0];
+
+    // could be an old link? let's redirect to the default module
+    if (regVersion.test(params[0])) {
+      params.unshift(defaultModule.id);
+      return params;
+    }
+
+    // old link to guide.. let's just redirect to the latest version
+    if (params[0] === 'guides') {
+      return [defaultModule.id, latestDefaultVersion].concat(params);
+    }
+
+    var module = util.findWhere(manifest.modules, {
       id: params[0]
     });
 
-    // it's a bad module? let's try the default module
+    // bad module = 404!
     if (!module) {
-      params.unshift(manifest.defaultModule);
+      return [defaultModule.id, latestDefaultVersion, notFoundUrl];
+    }
+
+    var latestVersion = module.versions[0];
+
+    // could be a version alias, let's redirect to the latest version
+    if (/(latest|stable)/.test(params[1])) {
+      params[1] = latestVersion;
       return params;
     }
 
-    // could be a version alias
-    if (params[1] === 'latest' || params[1] === 'stable') {
-      params[1] = module.versions[0];
+    // version was omitted entirely.. redirect to latest
+    if (!regVersion.test(params[1])) {
+      return [module.id, latestVersion].concat(params.slice(1));
+    }
+
+    // bad version = 404!
+    if (module.versions.indexOf(params[1]) === -1) {
+      return [module.id, latestVersion, notFoundUrl];
+    }
+
+    // if only module + version were supplied, let's redirect to default service
+    if (params.length === 2) {
+      params.push(module.defaultService);
       return params;
     }
 
-    var moduleId = params.shift();
-    var isValidVersion = module.versions.indexOf(params[0]) > -1;
-
-    // maybe it's a bad version? let's try the latest
-    if (!isValidVersion) {
-      var corrected = [moduleId, module.versions[0]];
-      var isGuide = params[0] === 'guides';
-
-      if (!isGuide) {
-        corrected.push(moduleId);
-      }
-
-      return corrected.concat(params);
-    }
-
-    var version = params.shift();
-
-    // if it's not a bad module or version, then likely the service is bad
-    // so we'll go to the default service
-    return [moduleId, version, module.defaultService];
+    // bad service/guide id = 404!
+    return [module.id, latestVersion, notFoundUrl];
   }
 
   function getDefaultParams(params, manifest) {
-    if (params[0] === 'latest' || params[0] === 'stable') {
-      params[0] = manifest.versions[0];
+    var latest = manifest.versions[0];
+
+    if (/(latest|stable)/.test(params[0])) {
+      params[0] = latest;
       return params;
     }
 
-    var isValidVersion = manifest.versions.indexOf(params[0]) > -1;
+    var regVersion = new RegExp('master|' + regSemver);
 
-    // could be a bad version number..
-    if (!isValidVersion) {
-      params.unshift(manifest.versions[0]);
+    // version could have been omitted altogether.. let's try the latest
+    if (!regVersion.test(params[0])) {
+      params.unshift(latest);
       return params;
     }
 
-    var version = params.shift();
+    // bad version = 404!
+    if (manifest.versions.indexOf(params[0]) === -1) {
+      return [latest, notFoundUrl];
+    }
 
-    // not a bad version number..? Then perhaps a bad service
-    return [version, manifest.defaultService || 'gcloud'];
+    // if only version was supplied, let's redirect to default service
+    if (params.length === 1) {
+      params.push(manifest.defaultService || 'gcloud');
+      return params;
+    }
+
+    // bad service/guide id = 404!
+    return [params[0], notFoundUrl];
   }
 
 }());

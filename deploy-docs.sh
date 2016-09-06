@@ -22,6 +22,7 @@ set -ev
 cd site
 npm install
 gulp lint
+gulp test
 
 
 # Only execute this script if this is a push to master.

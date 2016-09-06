@@ -11,6 +11,8 @@
   "jasmine": true,
   "globals": {
     "angular": false,
-    "console": false
+    "console": false,
+    "module": false,
+    "inject": false
   }
 }
