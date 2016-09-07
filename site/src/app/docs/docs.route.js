@@ -263,13 +263,6 @@
       return [module.id, latestVersion].concat(params.slice(1));
     }
 
-    var formattedVersion = params[1].replace('v', '');
-
-    if (module.versions.indexOf(formattedVersion) > -1) {
-      params[1] = formattedVersion;
-      return params;
-    }
-
     // bad version = 404!
     if (module.versions.indexOf(params[1]) === -1) {
       return [module.id, latestVersion, notFoundUrl];

@@ -6,7 +6,7 @@
     .run(runBlock);
 
   /** @ngInject */
-  function runBlock($state, $rootScope, $timeout, manifest, util) {
+  function runBlock($state, $location, $rootScope, $timeout, manifest) {
     if (!manifest.moduleName) {
       manifest.moduleName = 'gcloud-' + manifest.lang;
     }
@@ -17,28 +17,20 @@
       // uncomment for debugging
       // console.log(arguments);
 
-      var moduleId = $state.params.module || manifest.defaultModule;
+      var path = $location.path();
+      var params = path.split('/');
+      var version = params[3];
 
-      if (!moduleId && manifest.modules) {
-        moduleId = manifest.modules[0].id;
-      }
+      if (version && version.indexOf('v') === 0) {
+        var normalizedVersion = version.replace('v', '');
+        var normalizedPath = path.replace(version, normalizedVersion);
 
-      var module;
-
-      if (moduleId) {
-        module = util.findWhere(manifest.modules, {
-          id: moduleId
+        return $timeout(function() {
+          $location.path(normalizedPath);
         });
       }
 
-      var version = (module ? module : manifest).versions[0];
-      var serviceId = (module ? module : manifest).defaultService || 'gcloud';
-
-      $state.go('docs.service', {
-        module: moduleId,
-        version: version,
-        serviceId: serviceId
-      });
+      $state.go('docs.notfound');
     });
   }
 

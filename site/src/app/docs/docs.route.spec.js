@@ -75,13 +75,6 @@
         expect($location.path()).toBe('/docs/google-cloud/v0.39.0/not-found');
       });
 
-      it('should strip the "v" from the version if need be', function() {
-        goTo('/docs/google-cloud/v0.38.0');
-
-        expect($location.path())
-          .toBe('/docs/google-cloud/0.38.0');
-      });
-
       it('should send the user to the default service', function() {
         goTo('/docs/google-cloud/v0.39.0');
 
