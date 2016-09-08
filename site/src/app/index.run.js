@@ -14,23 +14,27 @@
     angular.extend($rootScope, manifest);
 
     $rootScope.$on('$stateChangeError', function() {
-      // uncomment for debugging
-      // console.log(arguments);
+      // // uncomment for debugging
+      // // console.log(arguments);
+
+      var versionIndex = manifest.modules ? 3 : 2;
+      var defaultModule = manifest.defaultModule || '';
 
       var path = $location.path();
       var params = path.split('/');
-      var version = params[3];
+      var version = params[versionIndex];
 
       if (version && version.indexOf('v') === 0) {
-        var normalizedVersion = version.replace('v', '');
-        var normalizedPath = path.replace(version, normalizedVersion);
-
-        return $timeout(function() {
-          $location.path(normalizedPath);
-        });
+        params[versionIndex] = version.replace('v', '');
+      } else if (!params[params.length -1]) {
+        params.pop();
+      } else {
+        params = ['docs', defaultModule, 'latest', 'not-found'];
       }
 
-      $state.go('docs.notfound');
+      $timeout(function() {
+        $location.path(params.join('/'));
+      });
     });
   }
 
