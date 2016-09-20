@@ -316,6 +316,18 @@ When supplied, the overview field maps to an html file that resembles a quick-st
 }
 ```
 
+##### `tagName` key
+
+**Note:** *This field is completely optional.*
+
+When supplied, this will be used when generating the links for source code. If omitted, then the site will fallback to the current version.
+
+```js
+{
+  "tagName": "bigquery-0.1.0"
+}
+```
+
 See the [Overview section][overview-section] for more information.
 
 ##### `guides` key

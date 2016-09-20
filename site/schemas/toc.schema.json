@@ -7,6 +7,11 @@
       "type": "string",
       "description": "Optional content to be injected at the top of service pages"
     },
+    "tagName": {
+      "id": "tagName",
+      "type": "string",
+      "description": "Optional tag name used to generate source code links"
+    },
     "guides": {
       "id": "guides",
       "type": "array",

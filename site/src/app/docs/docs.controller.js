@@ -16,6 +16,7 @@
     docs.services = toc.services;
     docs.versions = versions;
     docs.version = $state.params.version;
+    docs.tagName = toc.tagName || docs.version;
     docs.overviewFileUrl = null;
     docs.types = types;
 
