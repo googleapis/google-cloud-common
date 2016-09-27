@@ -29,6 +29,10 @@
       friendly: 'Ruby',
       key: 'ruby',
       repo: 'google-cloud-ruby'
+    }, {
+      friendly: 'Go',
+      key: 'go',
+      repo: 'google-cloud-go'
     }]);
 
 }());
