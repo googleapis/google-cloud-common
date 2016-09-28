@@ -14,6 +14,10 @@
       key: 'java',
       repo: 'google-cloud-java'
     }, {
+      friendly: 'Go',
+      key: 'go',
+      repo: 'google-cloud-go'
+    }, {
       friendly: 'Node.js',
       key: 'node',
       repo: 'google-cloud-node'
@@ -29,10 +33,6 @@
       friendly: 'Ruby',
       key: 'ruby',
       repo: 'google-cloud-ruby'
-    }, {
-      friendly: 'Go',
-      key: 'go',
-      repo: 'google-cloud-go'
     }]);
 
 }());
