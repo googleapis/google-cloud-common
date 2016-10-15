@@ -21,7 +21,9 @@ set -ev
 # repos (gcloud-node, gcloud-php, etc...)
 cd site
 npm install
+bower install
 gulp lint
+gulp test
 
 
 # Only execute this script if this is a push to master.
@@ -30,7 +32,6 @@ if [ "${TRAVIS_BRANCH}" != "master" ] || [ "${TRAVIS_PULL_REQUEST}" != "false" ]
 fi
 
 # Install dependencies & run the build (minify, concatenate dependencies, etc.)
-bower install
 gulp build
 
 function deploy_docs {
@@ -68,7 +69,7 @@ function deploy_docs {
   else
     echo "Nothing to commit. Exiting without pushing changes."
   fi
-  
+
   # Remove the gh-pages submodule.
   cd ..
   git submodule deinit -q -f gh-pages
@@ -77,5 +78,4 @@ function deploy_docs {
 }
 
 deploy_docs "googlecloudplatform/google-cloud-node"
-deploy_docs "googlecloudplatform/gcloud-python"
 deploy_docs "googlecloudplatform/google-cloud-ruby"

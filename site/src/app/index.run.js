@@ -6,7 +6,7 @@
     .run(runBlock);
 
   /** @ngInject */
-  function runBlock($state, $rootScope, $timeout, manifest, util) {
+  function runBlock($state, $location, $rootScope, $timeout, manifest) {
     if (!manifest.moduleName) {
       manifest.moduleName = 'gcloud-' + manifest.lang;
     }
@@ -14,30 +14,26 @@
     angular.extend($rootScope, manifest);
 
     $rootScope.$on('$stateChangeError', function() {
-      // uncomment for debugging
-      // console.log(arguments);
+      // // uncomment for debugging
+      // // console.log(arguments);
 
-      var moduleId = $state.params.module || manifest.defaultModule;
+      var versionIndex = manifest.modules ? 3 : 2;
+      var defaultModule = manifest.defaultModule || '';
 
-      if (!moduleId && manifest.modules) {
-        moduleId = manifest.modules[0].id;
+      var path = $location.path();
+      var params = path.split('/');
+      var version = params[versionIndex];
+
+      if (version && version.indexOf('v') === 0) {
+        params[versionIndex] = version.replace('v', '');
+      } else if (!params[params.length -1]) {
+        params.pop();
+      } else {
+        params = ['docs', defaultModule, 'latest', 'not-found'];
       }
 
-      var module;
-
-      if (moduleId) {
-        module = util.findWhere(manifest.modules, {
-          id: moduleId
-        });
-      }
-
-      var version = (module ? module : manifest).versions[0];
-      var serviceId = (module ? module : manifest).defaultService || 'gcloud';
-
-      $state.go('docs.service', {
-        module: moduleId,
-        version: version,
-        serviceId: serviceId
+      $timeout(function() {
+        $location.path(params.join('/'));
       });
     });
   }

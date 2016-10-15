@@ -26,11 +26,11 @@
     }
 
     function watchMethod() {
-      return DeeplinkService.watch($scope, getMethod);
+      return DeeplinkService.watch($scope, getAnchor);
     }
 
-    function getMethod() {
-      return $state.params && $state.params.method;
+    function getAnchor() {
+      return $state.params && ($state.params.method || $state.params.section);
     }
 
     function sortMethods(a, b) {
