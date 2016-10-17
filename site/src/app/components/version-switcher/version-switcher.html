@@ -8,9 +8,18 @@
         ng-options="version for version in docs.versions"
         ng-change="docs.loadVersion(docs.selectedVersion)"
       ></select>
-      <div ng-if="selectedVersion.name === 'master' && docs.lastBuiltDate">
+<!--       <div ng-if="docs.selectedVersion === 'master' && docs.lastBuiltDate">
         <small>
           <em>Docs last built {{docs.lastBuiltDate | date : longDate}}.</em>
+        </small>
+      </div> -->
+      <div ng-if="docs.selectedVersion !== 'master'">
+        <small>
+          <em>
+            <a
+              ng-href="https://github.com/GoogleCloudPlatform/{{moduleName}}/releases/tag/{{docs.tagName}}"
+              target="_blank">Release notes</a>
+          </em>
         </small>
       </div>
     </div>

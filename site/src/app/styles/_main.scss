@@ -1106,7 +1106,6 @@ ul {
 .side-nav--meta {
     padding: 10px;
     background-color: #f5f5f5;
-    text-align: center;
     margin-bottom: 10px;
 }
 
@@ -1115,7 +1114,7 @@ ul {
     padding-right: 2em;
 }
 
-.side-nav a {
+.side-nav ul a {
     display: block;
     padding: 0.3em 2em;
     color: #5d6061;
@@ -1128,7 +1127,7 @@ ul {
         transition: all 0.3s ease;
 }
 
-.side-nav a:hover {
+.side-nav ul a:hover {
     background: rgba(255,255,255,0.7);
 }
 
@@ -1655,7 +1654,11 @@ ul {
         overflow-y: auto;
     }
 
-    .side-nav a {
+    .side-nav--meta {
+      text-align: center;
+    }
+
+    .side-nav ul a {
         padding-left: 2.5em;
     }
 }
