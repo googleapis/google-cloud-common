@@ -2,12 +2,12 @@
 
 Get up and running with your Google Cloud Platform client library.
 
-  - Go - [gcloud-golang](https://github.com/googlecloudplatform/gcloud-golang)
-  - Java - [gcloud-java](https://github.com/googlecloudplatform/gcloud-java)
-  - Node.js - [gcloud-node](https://github.com/googlecloudplatform/gcloud-node)
-  - PHP - [gcloud-php](https://github.com/googlecloudplatform/gcloud-php)
-  - Python - [gcloud-python](https://github.com/googlecloudplatform/gcloud-python)
-  - Ruby - [gcloud-ruby](https://github.com/googlecloudplatform/gcloud-ruby)
+  - Go - [google-cloud-golang](https://github.com/googlecloudplatform/google-cloud-golang)
+  - Java - [google-cloud-java](https://github.com/googlecloudplatform/google-cloud-java)
+  - Node.js - [google-cloud-node](https://github.com/googlecloudplatform/google-cloud-node)
+  - PHP - [google-cloud-php](https://github.com/googlecloudplatform/google-cloud-php)
+  - Python - [google-cloud-python](https://github.com/googlecloudplatform/google-cloud-python)
+  - Ruby - [google-cloud-ruby](https://github.com/googlecloudplatform/google-cloud-ruby)
 
 #### [Authentication Guide](authentication/readme.md)
 
