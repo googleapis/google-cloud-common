@@ -6,10 +6,11 @@
     .run(runBlock);
 
   /** @ngInject */
-  function runBlock($state, $location, $rootScope, $timeout, manifest) {
+  function runBlock($state, $location, $rootScope, $timeout, $document, manifest) {
     if (!manifest.moduleName) {
-      manifest.moduleName = 'gcloud-' + manifest.lang;
+      manifest.moduleName = 'google-cloud-' + manifest.lang;
     }
+    $document.find('title').text(manifest.moduleName);
 
     angular.extend($rootScope, manifest);
 
