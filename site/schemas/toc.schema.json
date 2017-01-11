@@ -75,6 +75,16 @@
             "type": "string",
             "description": "ID of type that maps JSON content"
           },
+          "type": {
+            "id": "patterns",
+            "type": "array",
+            "description": "List of RegExp patterns to match URL paths. If any is matched, the left nav item for this service will be active.",
+            "items": {
+              "id": "pattern",
+              "type": "string",
+              "description": "Valid RegExp pattern string"
+            }
+          },
           "nav": {
             "id": "nav",
             "type": "array",

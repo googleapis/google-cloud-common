@@ -42,22 +42,28 @@
       var serviceId = service.type;
       var serviceIdParam = $state.params.serviceId || '';
 
-      // Match the first element in the serviceId. E.g., nav parent
+      // Match the first element in the type. E.g., nav parent
       // `datastore/client` matches `datastore` extracted from nav child
       // `datastore/query`.
       if (manifest.matchPartialServiceId) {
         var partialServiceId = serviceId.split('/')[0];
         return !!serviceIdParam.match(partialServiceId);
 
-      // Match the downcase service title to any part of the serviceIdParam,
+      // If toc entry contains 'patterns', attempt to match any of them.
       // E.g., both nav parent `google/cloud/datastore` and nav child
-      // `google/datastore/v1` match the title `datastore`.
-      } else if (manifest.matchServiceTitle)  {
-        var parts = serviceIdParam.split('/');
-        return parts.indexOf(service.title.toLowerCase()) >= 0;
+      // `google/datastore/v1` match the pattern `datastore`.
+      } else if (service.patterns)  {
+        var matched = false;
+        angular.forEach(service.patterns, function(pattern) {
+          if (!matched) { // Simply skip if already matched
+            if (new RegExp(pattern).test(serviceIdParam)) {
+              matched = true;
+            }
+          }
+        });
+        return matched;
       }
-
-      // Strictly match. E.g., `datastore/query` matches `datastore`.
+      // Match using type. E.g., `datastore/query` is a match for `datastore`.
       return !!serviceIdParam.match(serviceId);
     }
 
