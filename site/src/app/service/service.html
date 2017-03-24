@@ -31,7 +31,7 @@
       <h4>Example</h4>
       <div ng-repeat="example in service.examples">
         <div ng-if="example.caption" bind-html-compile="example.caption"></div>
-        <div ng-if="example.code" class="code-block">
+        <div ng-if="example.code" class="code-block" ng-class="{'margin-top': !example.caption && $index > 0}>
           <pre><code class="hljs {{::markdown}}" bind-html-compile="example.code"></code></pre>
         </div>
       </div>
@@ -80,7 +80,7 @@
       <h4>Example</h4>
       <div ng-repeat="example in method.examples">
         <div ng-if="example.caption" bind-html-compile="example.caption"></div>
-        <div ng-if="example.code" class="code-block">
+        <div ng-if="example.code" class="code-block" ng-class="{'margin-top': !example.caption && $index > 0}">
           <pre><code class="hljs {{::markdown}}" bind-html-compile="example.code"></code></pre>
         </div>
       </div>
