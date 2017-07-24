@@ -122,23 +122,23 @@
       }));
 
       it('should replace the "latest" alias', function() {
-        goTo('/docs/latest/google-cloud');
-        expect($location.path()).toBe('/docs/v0.39.0/google-cloud');
+        goTo('/docs/latest/google-cloud?method=myMethod');
+        expect($location.url()).toBe('/docs/v0.39.0/google-cloud?method=myMethod');
       });
 
       it('should replace the "stable" alias', function() {
-        goTo('/docs/stable/google-cloud');
-        expect($location.path()).toBe('/docs/v0.39.0/google-cloud');
+        goTo('/docs/stable/google-cloud?method=myMethod');
+        expect($location.url()).toBe('/docs/v0.39.0/google-cloud?method=myMethod');
       });
 
       it('should add the version if omitted', function() {
         goTo('/docs/guides/authentication');
-        expect($location.path()).toBe('/docs/v0.39.0/guides/authentication');
+        expect($location.url()).toBe('/docs/v0.39.0/guides/authentication');
       });
 
       it('should redirect the user to the default service', function() {
         goTo('/docs/v0.39.0');
-        expect($location.path()).toBe('/docs/v0.39.0/google-cloud');
+        expect($location.url()).toBe('/docs/v0.39.0/google-cloud');
       });
     });
   });

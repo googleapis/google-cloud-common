@@ -104,7 +104,12 @@
         correctedParams = getDefaultParams(params, manifest, $injector);
       }
 
-      return docsBaseUrl + correctedParams.join('/');
+      var correctedUrl = docsBaseUrl + correctedParams.join('/');
+      var query = $location.url().split('?')[1];
+      if (query) {
+        correctedUrl = correctedUrl + '?' + query;
+      }
+      return correctedUrl;
     });
   }
 
