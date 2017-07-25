@@ -38,7 +38,7 @@
     </section>
   </article>
   <article ng-repeat="method in service.methods">
-    <div ng-if="method.isConstructor" class="notice">
+    <div ng-if="$first" class="notice">
       Available methods:
       <span ng-repeat="method in service.methods">
         <a ui-sref="docs.service({ method: method.id })">{{method.name}}</a>{{$last ? '' : ', '}}
