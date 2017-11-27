@@ -872,6 +872,14 @@ ul {
     border-bottom: 1px solid rgba(0,0,0,0.05);
 }
 
+.docs-moved {
+  background-color: #db4437;
+  color: #fff;
+  padding: 0.25em 1.5em;
+  margin-bottom: 1em;
+  margin-top: -10px;
+}
+
 .param {
   white-space: nowrap;
 }
@@ -1630,8 +1638,9 @@ ul {
         background: url(../assets/images/lang-bg.png) repeat-y;
     }
 
-    .docs-header {
+    .docs-header, .docs-moved {
       margin-left: 240px;
+      margin-top: 0;
     }
 
     .content {

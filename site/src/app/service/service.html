@@ -1,5 +1,11 @@
 <page-header title="service.title"></page-header>
 <version-switcher class="invisible-lg side-nav--meta--top"></version-switcher>
+<article ng-if="::docs.latestDocsUrl" class="docs-moved">
+  <p>
+    Can't find the right version? That might be because our docs have
+    <a ng-href="{{::docs.latestDocsUrl}}">moved</a>
+  </p>
+</article>
 <article class="content">
   <div ng-if="::docs.overviewFileUrl">
     <h3 class="sub-heading toggle" ng-click="service.showGettingStarted = !service.showGettingStarted">

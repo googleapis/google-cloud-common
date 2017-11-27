@@ -6,12 +6,13 @@
     .controller('DocsCtrl', DocsCtrl);
 
   /** @ngInject */
-  function DocsCtrl($state, langs, manifest, toc, types, lastBuiltDate, versions) {
+  function DocsCtrl($state, langs, manifest, toc, types, lastBuiltDate, versions, util) {
     var docs = this;
 
     docs.libraryTitle = manifest.libraryTitle || 'Google Cloud';
     docs.langs = langs;
     docs.lastBuiltDate = lastBuiltDate;
+    docs.latestDocsUrl = getNewDocsUrl();
     docs.guides = toc.guides;
     docs.services = toc.services;
     docs.versions = versions;
@@ -69,6 +70,24 @@
 
     function getGuideUrl(page) {
       return page.title.toLowerCase().replace(/\s/g, '-');
+    }
+
+    function getNewDocsUrl() {
+      if (manifest.latestDocsUrl) {
+        return manifest.latestDocsUrl;
+      }
+
+      if (manifest.modules) {
+        var mod = util.findWhere(manifest.modules, {
+          id: $state.params.module
+        });
+
+        if (mod) {
+          return mod.latestDocsUrl;
+        }
+      }
+
+      return null;
     }
   }
 }());

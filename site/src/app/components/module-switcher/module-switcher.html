@@ -1,10 +1,11 @@
 <dropdown selected="selected" class="module-switcher">
   <li ng-repeat="module in modules">
     <a
-      ui-sref="docs.service({ module: module.id, version: module.versions[0], serviceId: module.defaultService })"
+      class="skip-external-link"
+      ng-href="{{::getUrl(module)}}"
       ng-attr-title="{{::module.name}}">
         <span class="module-name">{{::module.name}}</span>
-        <span class="module-version">latest: {{::module.versions[0]}}</span>
+        <span ng-if="::module.versions" class="module-version">latest: {{::module.versions[0]}}</span>
       </a>
   </li>
 </dropdown>
