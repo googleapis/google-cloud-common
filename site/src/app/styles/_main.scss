@@ -141,6 +141,21 @@ pre {
   font-size: 1em;
 }
 
+.code-block--numbers {
+  & > pre {
+    counter-reset:line;
+  }
+
+  .code-block__line:before {
+    counter-increment: line;
+    content: counter(line);
+    display: inline-block;
+    padding: 0 0.5em;
+    margin-right: 0.5em;
+    color: #998;
+  }
+}
+
 pre,
 code {
   font-family: Monaco, 'Droid Sans Mono', monospace !important;

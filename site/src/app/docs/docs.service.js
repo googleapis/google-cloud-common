@@ -58,10 +58,17 @@
     }
 
     function trustExample(example) {
+      var MIN_CODE_LINES = 10;
+      var useLineNumbers = false;
+      var openTag = '<span class="code-block__line">';
+      var closeTag = '</span>';
       var code, caption;
 
       if (example.code) {
-        code = $sce.trustAsHtml(example.code);
+        code = example.code.split('\n');
+        useLineNumbers = code.length > MIN_CODE_LINES;
+        code = openTag + code.join(closeTag + '\n' + openTag) + closeTag;
+        code = $sce.trustAsHtml(code);
       }
 
       if (example.caption) {
@@ -70,7 +77,8 @@
 
       return {
         code: code,
-        caption: caption
+        caption: caption,
+        useLineNumbers: useLineNumbers
       };
     }
 
