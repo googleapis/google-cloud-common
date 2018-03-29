@@ -587,6 +587,14 @@ paths are the only ones to be merged, then no document is sent, just an update m
 			outData: nil,
 			mask:    []string{"b.c"},
 		},
+		{
+			suffix:  "mergeall-empty",
+			desc:    "MergeAll can be specified with empty data.",
+			comment: `This is a valid call that can be used to ensure a document exists.`,
+			inData:  `{}`,
+			opt:     mergeAllOption,
+			outData: mp(),
+		},
 		// Errors:
 		{
 			suffix: "merge-present",
@@ -624,15 +632,6 @@ confused: their merge path says "replace this entire value" but their Delete say
 in a Set with no merge.`,
 			inData: `{"h": {"g": "Delete"}}`,
 			opt:    mergeOption([]string{"h"}),
-			isErr:  true,
-		},
-		{
-			suffix: "mergeall-empty",
-			desc:   "MergeAll cannot be specified with empty data.",
-			comment: `It makes no sense to specify MergeAll and provide no data, so we
-disallow it on the client.`,
-			inData: `{}`,
-			opt:    mergeAllOption,
 			isErr:  true,
 		},
 		{
