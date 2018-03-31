@@ -16,6 +16,8 @@ set: <
       update: <
         name: "projects/projectID/databases/(default)/documents/C/d"
       >
+      update_mask: <
+      >
     >
   >
 >

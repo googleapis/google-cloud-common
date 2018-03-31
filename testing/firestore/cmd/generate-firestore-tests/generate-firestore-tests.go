@@ -594,6 +594,7 @@ paths are the only ones to be merged, then no document is sent, just an update m
 			inData:  `{}`,
 			opt:     mergeAllOption,
 			outData: mp(),
+			mask:    []string{},
 		},
 		// Errors:
 		{
