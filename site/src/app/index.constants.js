@@ -10,6 +10,10 @@
       key: 'dotnet',
       repo: 'google-cloud-dotnet'
     }, {
+      friendly: 'C++',
+      key: 'cpp',
+      repo: 'google-cloud-cpp'
+    }, {
       friendly: 'Java',
       key: 'java',
       repo: 'google-cloud-java'
