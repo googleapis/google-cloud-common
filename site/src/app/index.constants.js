@@ -10,13 +10,13 @@
       key: 'dotnet',
       repo: 'google-cloud-dotnet'
     }, {
-      friendly: 'Java',
-      key: 'java',
-      repo: 'google-cloud-java'
-    }, {
       friendly: 'Go',
       key: 'go',
       repo: 'google-cloud-go'
+    }, {
+      friendly: 'Java',
+      key: 'java',
+      repo: 'google-cloud-java'
     }, {
       friendly: 'Node.js',
       key: 'node',
