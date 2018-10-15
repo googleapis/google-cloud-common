@@ -30,6 +30,10 @@ query: <
       direction: ASCENDING
     >
     start_at: <
+      values: <
+        map_value: <
+        >
+      >
       before: true
     >
   >
