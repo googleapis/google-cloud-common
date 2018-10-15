@@ -1316,6 +1316,7 @@ func genQuery(suite *tpb.TestSuite) {
 				OrderBy: []*fspb.StructuredQuery_Order{
 					{Field: fref("a"), Direction: fspb.StructuredQuery_ASCENDING},
 				},
+				StartAt: &fspb.Cursor{Values: []*fspb.Value{}, Before: true},
 			},
 		},
 		{
@@ -1330,6 +1331,7 @@ func genQuery(suite *tpb.TestSuite) {
 				OrderBy: []*fspb.StructuredQuery_Order{
 					{Field: fref("a"), Direction: fspb.StructuredQuery_ASCENDING},
 				},
+				EndAt: &fspb.Cursor{Values: []*fspb.Value{}, Before: true},
 			},
 		},
 		{

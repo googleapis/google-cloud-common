@@ -4,7 +4,7 @@
 # Cursor methods are allowed to use empty values with EndBefore. It should result
 # in no addition to the query.
 
-description: "query: StartAt with empty values"
+description: "query: EndBefore with empty values"
 query: <
   coll_path: "projects/projectID/databases/(default)/documents/C"
   clauses: <
@@ -28,6 +28,9 @@ query: <
         field_path: "a"
       >
       direction: ASCENDING
+    >
+    end_at: <
+      before: true
     >
   >
 >

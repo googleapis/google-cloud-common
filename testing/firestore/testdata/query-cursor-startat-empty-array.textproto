@@ -29,5 +29,8 @@ query: <
       >
       direction: ASCENDING
     >
+    start_at: <
+      before: true
+    >
   >
 >
