@@ -5,10 +5,11 @@ package tests
 
 import (
 	fmt "fmt"
+	math "math"
+
 	proto "github.com/golang/protobuf/proto"
 	timestamp "github.com/golang/protobuf/ptypes/timestamp"
 	v1beta1 "google.golang.org/genproto/googleapis/firestore/v1beta1"
-	math "math"
 )
 
 // Reference imports to suppress errors if they are not otherwise used.
@@ -67,6 +68,7 @@ func (*TestSuite) ProtoMessage()    {}
 func (*TestSuite) Descriptor() ([]byte, []int) {
 	return fileDescriptor_c161fcfdc0c3ff1e, []int{0}
 }
+
 func (m *TestSuite) XXX_Unmarshal(b []byte) error {
 	return xxx_messageInfo_TestSuite.Unmarshal(m, b)
 }
@@ -116,6 +118,7 @@ func (*Test) ProtoMessage()    {}
 func (*Test) Descriptor() ([]byte, []int) {
 	return fileDescriptor_c161fcfdc0c3ff1e, []int{1}
 }
+
 func (m *Test) XXX_Unmarshal(b []byte) error {
 	return xxx_messageInfo_Test.Unmarshal(m, b)
 }
@@ -461,6 +464,7 @@ func (*GetTest) ProtoMessage()    {}
 func (*GetTest) Descriptor() ([]byte, []int) {
 	return fileDescriptor_c161fcfdc0c3ff1e, []int{2}
 }
+
 func (m *GetTest) XXX_Unmarshal(b []byte) error {
 	return xxx_messageInfo_GetTest.Unmarshal(m, b)
 }
@@ -517,6 +521,7 @@ func (*CreateTest) ProtoMessage()    {}
 func (*CreateTest) Descriptor() ([]byte, []int) {
 	return fileDescriptor_c161fcfdc0c3ff1e, []int{3}
 }
+
 func (m *CreateTest) XXX_Unmarshal(b []byte) error {
 	return xxx_messageInfo_CreateTest.Unmarshal(m, b)
 }
@@ -581,6 +586,7 @@ func (*SetTest) ProtoMessage()    {}
 func (*SetTest) Descriptor() ([]byte, []int) {
 	return fileDescriptor_c161fcfdc0c3ff1e, []int{4}
 }
+
 func (m *SetTest) XXX_Unmarshal(b []byte) error {
 	return xxx_messageInfo_SetTest.Unmarshal(m, b)
 }
@@ -653,6 +659,7 @@ func (*UpdateTest) ProtoMessage()    {}
 func (*UpdateTest) Descriptor() ([]byte, []int) {
 	return fileDescriptor_c161fcfdc0c3ff1e, []int{5}
 }
+
 func (m *UpdateTest) XXX_Unmarshal(b []byte) error {
 	return xxx_messageInfo_UpdateTest.Unmarshal(m, b)
 }
@@ -727,6 +734,7 @@ func (*UpdatePathsTest) ProtoMessage()    {}
 func (*UpdatePathsTest) Descriptor() ([]byte, []int) {
 	return fileDescriptor_c161fcfdc0c3ff1e, []int{6}
 }
+
 func (m *UpdatePathsTest) XXX_Unmarshal(b []byte) error {
 	return xxx_messageInfo_UpdatePathsTest.Unmarshal(m, b)
 }
@@ -804,6 +812,7 @@ func (*DeleteTest) ProtoMessage()    {}
 func (*DeleteTest) Descriptor() ([]byte, []int) {
 	return fileDescriptor_c161fcfdc0c3ff1e, []int{7}
 }
+
 func (m *DeleteTest) XXX_Unmarshal(b []byte) error {
 	return xxx_messageInfo_DeleteTest.Unmarshal(m, b)
 }
@@ -865,6 +874,7 @@ func (*SetOption) ProtoMessage()    {}
 func (*SetOption) Descriptor() ([]byte, []int) {
 	return fileDescriptor_c161fcfdc0c3ff1e, []int{8}
 }
+
 func (m *SetOption) XXX_Unmarshal(b []byte) error {
 	return xxx_messageInfo_SetOption.Unmarshal(m, b)
 }
@@ -913,6 +923,7 @@ func (*QueryTest) ProtoMessage()    {}
 func (*QueryTest) Descriptor() ([]byte, []int) {
 	return fileDescriptor_c161fcfdc0c3ff1e, []int{9}
 }
+
 func (m *QueryTest) XXX_Unmarshal(b []byte) error {
 	return xxx_messageInfo_QueryTest.Unmarshal(m, b)
 }
@@ -982,6 +993,7 @@ func (*Clause) ProtoMessage()    {}
 func (*Clause) Descriptor() ([]byte, []int) {
 	return fileDescriptor_c161fcfdc0c3ff1e, []int{10}
 }
+
 func (m *Clause) XXX_Unmarshal(b []byte) error {
 	return xxx_messageInfo_Clause.Unmarshal(m, b)
 }
@@ -1338,6 +1350,7 @@ func (*Select) ProtoMessage()    {}
 func (*Select) Descriptor() ([]byte, []int) {
 	return fileDescriptor_c161fcfdc0c3ff1e, []int{11}
 }
+
 func (m *Select) XXX_Unmarshal(b []byte) error {
 	return xxx_messageInfo_Select.Unmarshal(m, b)
 }
@@ -1378,6 +1391,7 @@ func (*Where) ProtoMessage()    {}
 func (*Where) Descriptor() ([]byte, []int) {
 	return fileDescriptor_c161fcfdc0c3ff1e, []int{12}
 }
+
 func (m *Where) XXX_Unmarshal(b []byte) error {
 	return xxx_messageInfo_Where.Unmarshal(m, b)
 }
@@ -1431,6 +1445,7 @@ func (*OrderBy) ProtoMessage()    {}
 func (*OrderBy) Descriptor() ([]byte, []int) {
 	return fileDescriptor_c161fcfdc0c3ff1e, []int{13}
 }
+
 func (m *OrderBy) XXX_Unmarshal(b []byte) error {
 	return xxx_messageInfo_OrderBy.Unmarshal(m, b)
 }
@@ -1478,6 +1493,7 @@ func (*Cursor) ProtoMessage()    {}
 func (*Cursor) Descriptor() ([]byte, []int) {
 	return fileDescriptor_c161fcfdc0c3ff1e, []int{14}
 }
+
 func (m *Cursor) XXX_Unmarshal(b []byte) error {
 	return xxx_messageInfo_Cursor.Unmarshal(m, b)
 }
@@ -1524,6 +1540,7 @@ func (*DocSnapshot) ProtoMessage()    {}
 func (*DocSnapshot) Descriptor() ([]byte, []int) {
 	return fileDescriptor_c161fcfdc0c3ff1e, []int{15}
 }
+
 func (m *DocSnapshot) XXX_Unmarshal(b []byte) error {
 	return xxx_messageInfo_DocSnapshot.Unmarshal(m, b)
 }
@@ -1569,6 +1586,7 @@ func (*FieldPath) ProtoMessage()    {}
 func (*FieldPath) Descriptor() ([]byte, []int) {
 	return fileDescriptor_c161fcfdc0c3ff1e, []int{16}
 }
+
 func (m *FieldPath) XXX_Unmarshal(b []byte) error {
 	return xxx_messageInfo_FieldPath.Unmarshal(m, b)
 }
@@ -1620,6 +1638,7 @@ func (*ListenTest) ProtoMessage()    {}
 func (*ListenTest) Descriptor() ([]byte, []int) {
 	return fileDescriptor_c161fcfdc0c3ff1e, []int{17}
 }
+
 func (m *ListenTest) XXX_Unmarshal(b []byte) error {
 	return xxx_messageInfo_ListenTest.Unmarshal(m, b)
 }
@@ -1674,6 +1693,7 @@ func (*Snapshot) ProtoMessage()    {}
 func (*Snapshot) Descriptor() ([]byte, []int) {
 	return fileDescriptor_c161fcfdc0c3ff1e, []int{18}
 }
+
 func (m *Snapshot) XXX_Unmarshal(b []byte) error {
 	return xxx_messageInfo_Snapshot.Unmarshal(m, b)
 }
@@ -1729,6 +1749,7 @@ func (*DocChange) ProtoMessage()    {}
 func (*DocChange) Descriptor() ([]byte, []int) {
 	return fileDescriptor_c161fcfdc0c3ff1e, []int{19}
 }
+
 func (m *DocChange) XXX_Unmarshal(b []byte) error {
 	return xxx_messageInfo_DocChange.Unmarshal(m, b)
 }
@@ -1776,6 +1797,7 @@ func (m *DocChange) GetNewIndex() int32 {
 }
 
 func init() {
+	proto.RegisterEnum("tests.DocChange_Kind", DocChange_Kind_name, DocChange_Kind_value)
 	proto.RegisterType((*TestSuite)(nil), "tests.TestSuite")
 	proto.RegisterType((*Test)(nil), "tests.Test")
 	proto.RegisterType((*GetTest)(nil), "tests.GetTest")
@@ -1796,7 +1818,6 @@ func init() {
 	proto.RegisterType((*ListenTest)(nil), "tests.ListenTest")
 	proto.RegisterType((*Snapshot)(nil), "tests.Snapshot")
 	proto.RegisterType((*DocChange)(nil), "tests.DocChange")
-	proto.RegisterEnum("tests.DocChange_Kind", DocChange_Kind_name, DocChange_Kind_value)
 }
 
 func init() { proto.RegisterFile("test.proto", fileDescriptor_c161fcfdc0c3ff1e) }
