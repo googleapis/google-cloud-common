@@ -17,6 +17,7 @@ query: <
   >
   clauses: <
     end_before: <
+      json_values: "{}"
     >
   >
   query: <

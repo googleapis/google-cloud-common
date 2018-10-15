@@ -1310,7 +1310,7 @@ func genQuery(suite *tpb.TestSuite) {
 			comment: `Cursor methods are allowed to use empty values with StartAt. It should result in no addition to the query.`,
 			clauses: []interface{}{
 				&tpb.OrderBy{Path: fp("a"), Direction: "asc"},
-				&tpb.Clause_StartAt{&tpb.Cursor{JsonValues: []string{}}},
+				&tpb.Clause_StartAt{&tpb.Cursor{JsonValues: []string{`{}`}}},
 			},
 			query: &fspb.StructuredQuery{
 				OrderBy: []*fspb.StructuredQuery_Order{
@@ -1325,7 +1325,7 @@ func genQuery(suite *tpb.TestSuite) {
 			comment: `Cursor methods are allowed to use empty values with EndBefore. It should result in no addition to the query.`,
 			clauses: []interface{}{
 				&tpb.OrderBy{Path: fp("a"), Direction: "asc"},
-				&tpb.Clause_EndBefore{&tpb.Cursor{JsonValues: []string{}}},
+				&tpb.Clause_EndBefore{&tpb.Cursor{JsonValues: []string{`{}`}}},
 			},
 			query: &fspb.StructuredQuery{
 				OrderBy: []*fspb.StructuredQuery_Order{

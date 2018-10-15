@@ -17,6 +17,7 @@ query: <
   >
   clauses: <
     start_at: <
+      json_values: "{}"
     >
   >
   query: <
