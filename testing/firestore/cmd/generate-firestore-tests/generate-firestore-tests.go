@@ -1320,7 +1320,7 @@ func genQuery(suite *tpb.TestSuite) {
 		},
 		{
 			suffix:  "cursor-endbefore-empty-array",
-			desc:    "StartAt with empty values",
+			desc:    "EndBefore with empty values",
 			comment: `Cursor methods are allowed to use empty values with EndBefore. It should result in no addition to the query.`,
 			clauses: []interface{}{
 				&tpb.OrderBy{Path: fp("a"), Direction: "asc"},
