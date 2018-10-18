@@ -1305,9 +1305,9 @@ func genQuery(suite *tpb.TestSuite) {
 			},
 		},
 		{
-			suffix:  "cursor-startat-empty-array",
-			desc:    "StartAt with empty values",
-			comment: `Cursor methods are allowed to use empty values with StartAt. It should result in no addition to the query.`,
+			suffix:  "cursor-startat-empty-map",
+			desc:    "StartAt with explicit empty map",
+			comment: `Cursor methods are allowed to use empty maps with StartAt. It should result in an empty map in the query.`,
 			clauses: []interface{}{
 				&tpb.OrderBy{Path: fp("a"), Direction: "asc"},
 				&tpb.Clause_StartAt{&tpb.Cursor{JsonValues: []string{`{}`}}},
@@ -1320,9 +1320,9 @@ func genQuery(suite *tpb.TestSuite) {
 			},
 		},
 		{
-			suffix:  "cursor-endbefore-empty-array",
-			desc:    "EndBefore with empty values",
-			comment: `Cursor methods are allowed to use empty values with EndBefore. It should result in no addition to the query.`,
+			suffix:  "cursor-endbefore-empty-map",
+			desc:    "EndBefore with explicit empty map",
+			comment: `Cursor methods are allowed to use empty maps with EndBefore. It should result in an empty map in the query.`,
 			clauses: []interface{}{
 				&tpb.OrderBy{Path: fp("a"), Direction: "asc"},
 				&tpb.Clause_EndBefore{&tpb.Cursor{JsonValues: []string{`{}`}}},
@@ -1333,6 +1333,26 @@ func genQuery(suite *tpb.TestSuite) {
 				},
 				EndAt: &fspb.Cursor{Values: []*fspb.Value{val(mp())}, Before: true},
 			},
+		},
+		{
+			suffix:  "cursor-startat-empty",
+			desc:    "StartAt with empty values",
+			comment: `Cursor methods are not allowed to use empty values with StartAt. It should result in an error.`,
+			clauses: []interface{}{
+				&tpb.OrderBy{Path: fp("a"), Direction: "asc"},
+				&tpb.Clause_StartAt{&tpb.Cursor{}},
+			},
+			isErr: true,
+		},
+		{
+			suffix:  "cursor-endbefore-empty",
+			desc:    "EndBefore with empty values",
+			comment: `Cursor methods are not allowed to use empty values with EndBefore. It should result in an error.`,
+			clauses: []interface{}{
+				&tpb.OrderBy{Path: fp("a"), Direction: "asc"},
+				&tpb.Clause_StartAt{&tpb.Cursor{}},
+			},
+			isErr: true,
 		},
 		{
 			suffix:  "cursor-vals-1a",
