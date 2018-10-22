@@ -4,7 +4,7 @@
 # Cursor methods are allowed to use empty maps with StartAt. It should result in
 # an empty map in the query.
 
-description: "query: StartAt with empty map"
+description: "query: StartAt with explicit empty map"
 query: <
   coll_path: "projects/projectID/databases/(default)/documents/C"
   clauses: <

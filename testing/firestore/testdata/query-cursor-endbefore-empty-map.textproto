@@ -4,7 +4,7 @@
 # Cursor methods are allowed to use empty maps with EndBefore. It should result in
 # an empty map in the query.
 
-description: "query: EndBefore with empty map"
+description: "query: EndBefore with explicit empty map"
 query: <
   coll_path: "projects/projectID/databases/(default)/documents/C"
   clauses: <

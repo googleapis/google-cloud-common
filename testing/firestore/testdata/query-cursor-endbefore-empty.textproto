@@ -16,7 +16,7 @@ query: <
     >
   >
   clauses: <
-    start_at: <
+    end_before: <
     >
   >
   is_error: true
