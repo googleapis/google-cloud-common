@@ -18,15 +18,15 @@ PROTOC_GO_PLUGIN_DIR = $(GOPATH)/bin
 PROTOBUF_REPO = $(GOPATH)/src/github.com/google/protobuf
 GOOGLEAPIS_REPO = $(GOPATH)/src/github.com/googleapis/googleapis
 
-.PHONY: generate-tests sync-protos gen-protos generator
+.PHONY: generate-tests sync-protos gen-protos generator fmt
 
 generate-tests: sync-protos gen-protos generator
-	rm testdata/*.textproto
+	rm testdata/*.json
 	$(GOPATH)/bin/generate-firestore-tests -o testdata
 
 sync-protos:
-	cd $(PROTOBUF_REPO); git pull
-	cd $(GOOGLEAPIS_REPO); git pull
+	cd $(PROTOBUF_REPO) && git pull
+	cd $(GOOGLEAPIS_REPO) && git pull
 
 gen-protos: sync-protos
 	mkdir -p genproto
@@ -38,3 +38,6 @@ gen-protos: sync-protos
 generator:
 	go install ./cmd/generate-firestore-tests
 
+fmt:
+	gofmt -s -d -l -w ./cmd/generate-firestore-tests \
+		&& goimports -w ./cmd/generate-firestore-tests

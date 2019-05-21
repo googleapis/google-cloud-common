@@ -17,16 +17,16 @@ package main
 import (
 	"flag"
 	"fmt"
-	"go/doc"
 	"log"
 	"os"
 	"path/filepath"
 	"strings"
 
-	tpb "github.com/googleapis/google-cloud-common/testing/firestore/genproto"
+	"github.com/golang/protobuf/jsonpb"
 	"github.com/golang/protobuf/proto"
 	tspb "github.com/golang/protobuf/ptypes/timestamp"
 	"github.com/golang/protobuf/ptypes/wrappers"
+	tpb "github.com/googleapis/google-cloud-common/testing/firestore/genproto"
 	fspb "google.golang.org/genproto/googleapis/firestore/v1"
 )
 
@@ -58,11 +58,11 @@ var (
 // others allow both.
 type writeTest struct {
 	// Textproto filename suffix.
-	suffix           string
+	suffix string
 	// Short description.
-	desc             string
+	desc string
 	// Detailed explanation (comment in textproto file).
-	comment          string
+	comment string
 	// Additional comment for update operations.
 	commentForUpdate string
 
@@ -75,7 +75,7 @@ type writeTest struct {
 	//
 	// This value is parsed into fieldpath/value pairs and turned into the
 	// proto values firestore.Update.Path and firestore.Update.Val.
-	inData           string
+	inData string
 
 	// Paths and values are used as fieldpath inputs to Update as opposed to
 	// the json-like inputs to Update specified in "inData".
@@ -88,33 +88,33 @@ type writeTest struct {
 	// the same index in values.
 	//
 	// This value corresponds to the proto value firestore.Update.Path
-	paths            [][]string
+	paths [][]string
 	// values is an array of values whose index corresponds to the path of the
 	// same index in the outer array of paths.
 	//
 	// This value corresponds to the proto value firestore.Update.Val.
-	values           []string
+	values []string
 
 	// Option for Set.
-	opt              *tpb.SetOption
+	opt *tpb.SetOption
 
 	// Precondition for Update.
-	precond          *fspb.Precondition
+	precond *fspb.Precondition
 
 	// Expected data in the update write.
-	outData       map[string]*fspb.Value
+	outData map[string]*fspb.Value
 
 	// Expected fields in update mask.
-	mask          []string
+	mask []string
 
 	// Mask, but only for Update/UpdatePaths.
 	maskForUpdate []string
 
 	// Expected transformations.
-	transform     []*fspb.DocumentTransform_FieldTransform
+	transform []*fspb.DocumentTransform_FieldTransform
 
 	// Arguments result in a client-side error.
-	isErr         bool
+	isErr bool
 }
 
 var (
@@ -288,10 +288,10 @@ update operation should be produced.`,
 		},
 		{
 			suffix: "nested-transform-and-nested-value",
-			desc: 	`Nested transforms should not affect the field mask, even
+			desc: `Nested transforms should not affect the field mask, even
 when there are other values that do. Transforms should only affect the
 DocumentTransform_FieldTransform list.`,
-			comment:   `For updates, top-level paths in json-like map inputs
+			comment: `For updates, top-level paths in json-like map inputs
 are split on the dot. That is, an input {"a.b.c": 7} results in an update to
 field c of object b of object a with value 7. In order to specify this behavior,
 the update must use a fieldmask "a.b.c". However, fieldmasks are only used for
@@ -607,22 +607,20 @@ func main() {
 	genDelete(suite)
 	genQuery(suite)
 	genListen(suite)
-	if err := writeProtoToFile(filepath.Join(*outputDir, "test-suite.binproto"), suite); err != nil {
-		log.Fatal(err)
-	}
 	fmt.Printf("wrote %d tests to %s\n", nTests, *outputDir)
 }
 
 func genGet(suite *tpb.TestSuite) {
 	tp := &tpb.Test{
 		Description: "get: get a document",
+		Comment:     "A call to DocumentRef.Get",
 		Test: &tpb.Test_Get{&tpb.GetTest{
 			DocRefPath: docPath,
 			Request:    &fspb.GetDocumentRequest{Name: docPath},
 		}},
 	}
 	suite.Tests = append(suite.Tests, tp)
-	outputTestText("get-basic", "A call to DocumentRef.Get.", tp)
+	outputTestText("get-basic", tp)
 }
 
 func genCreate(suite *tpb.TestSuite) {
@@ -654,6 +652,7 @@ update operation should be produced.`,
 		}
 		tp := &tpb.Test{
 			Description: "create: " + test.desc,
+			Comment:     test.comment,
 			Test: &tpb.Test_Create{&tpb.CreateTest{
 				DocRefPath: docPath,
 				JsonData:   test.inData,
@@ -662,7 +661,7 @@ update operation should be produced.`,
 			}},
 		}
 		suite.Tests = append(suite.Tests, tp)
-		outputTestText(fmt.Sprintf("create-%s", test.suffix), test.comment, tp)
+		outputTestText(fmt.Sprintf("create-%s", test.suffix), tp)
 	}
 
 }
@@ -920,6 +919,7 @@ probably a programming error.`,
 		}
 		tp := &tpb.Test{
 			Description: prefix + ": " + test.desc,
+			Comment:     test.comment,
 			Test: &tpb.Test_Set{&tpb.SetTest{
 				DocRefPath: docPath,
 				Option:     test.opt,
@@ -929,7 +929,7 @@ probably a programming error.`,
 			}},
 		}
 		suite.Tests = append(suite.Tests, tp)
-		outputTestText(fmt.Sprintf("set-%s", test.suffix), test.comment, tp)
+		outputTestText(fmt.Sprintf("set-%s", test.suffix), tp)
 	}
 }
 
@@ -997,6 +997,7 @@ An update operation is produced just to hold the precondition.`,
 	for _, test := range tests {
 		tp := &tpb.Test{
 			Description: "update: " + test.desc,
+			Comment:     test.comment,
 			Test: &tpb.Test_Update{&tpb.UpdateTest{
 				DocRefPath:   docPath,
 				Precondition: test.precond,
@@ -1010,7 +1011,7 @@ An update operation is produced just to hold the precondition.`,
 			comment += "\n\n" + test.commentForUpdate
 		}
 		suite.Tests = append(suite.Tests, tp)
-		outputTestText(fmt.Sprintf("update-%s", test.suffix), comment, tp)
+		outputTestText(fmt.Sprintf("update-%s", test.suffix), tp)
 	}
 }
 
@@ -1091,6 +1092,7 @@ Each FieldPath is a sequence of uninterpreted path components.`,
 		}
 		tp := &tpb.Test{
 			Description: "update-paths: " + test.desc,
+			Comment:     test.comment,
 			Test: &tpb.Test_UpdatePaths{&tpb.UpdatePathsTest{
 				DocRefPath:   docPath,
 				Precondition: test.precond,
@@ -1105,7 +1107,7 @@ Each FieldPath is a sequence of uninterpreted path components.`,
 			comment += "\n\n" + test.commentForUpdate
 		}
 		suite.Tests = append(suite.Tests, tp)
-		outputTestText(fmt.Sprintf("update-paths-%s", test.suffix), test.comment, tp)
+		outputTestText(fmt.Sprintf("update-paths-%s", test.suffix), tp)
 	}
 }
 
@@ -1148,6 +1150,7 @@ func genDelete(suite *tpb.TestSuite) {
 		}
 		tp := &tpb.Test{
 			Description: "delete: " + test.desc,
+			Comment:     test.comment,
 			Test: &tpb.Test_Delete{&tpb.DeleteTest{
 				DocRefPath:   docPath,
 				Precondition: test.precond,
@@ -1156,7 +1159,7 @@ func genDelete(suite *tpb.TestSuite) {
 			}},
 		}
 		suite.Tests = append(suite.Tests, tp)
-		outputTestText(fmt.Sprintf("delete-%s", test.suffix), test.comment, tp)
+		outputTestText(fmt.Sprintf("delete-%s", test.suffix), tp)
 	}
 }
 
@@ -1818,6 +1821,7 @@ same collection as the query.`,
 		}
 		tp := &tpb.Test{
 			Description: "query: " + test.desc,
+			Comment:     test.comment,
 			Test: &tpb.Test_Query{&tpb.QueryTest{
 				CollPath: collPath,
 				Clauses:  tclauses,
@@ -1826,7 +1830,7 @@ same collection as the query.`,
 			}},
 		}
 		suite.Tests = append(suite.Tests, tp)
-		outputTestText(fmt.Sprintf("query-%s", test.suffix), test.comment, tp)
+		outputTestText(fmt.Sprintf("query-%s", test.suffix), tp)
 	}
 }
 
@@ -2160,7 +2164,7 @@ first by the "a" field, then by their path. The changes are ordered the same way
 			comment: `The DocumentRemove response behaves exactly like DocumentDelete.`,
 			responses: []*fspb.ListenResponse{
 				change(doc1), current, noChange(ts(1)),
-				&fspb.ListenResponse{ResponseType: &fspb.ListenResponse_DocumentRemove{&fspb.DocumentRemove{
+				{ResponseType: &fspb.ListenResponse_DocumentRemove{&fspb.DocumentRemove{
 					Document: doc1.Name,
 				}}},
 				noChange(ts(2)),
@@ -2208,7 +2212,7 @@ state (docs in last snapshot + docs added - docs deleted) is a no-op.`,
 same as deleting a document.`,
 			responses: []*fspb.ListenResponse{
 				change(doc1), current, noChange(ts(1)),
-				&fspb.ListenResponse{ResponseType: &fspb.ListenResponse_DocumentChange{&fspb.DocumentChange{
+				{ResponseType: &fspb.ListenResponse_DocumentChange{&fspb.DocumentChange{
 					Document:         doc1,
 					RemovedTargetIds: []int32{watchTargetID},
 				}}},
@@ -2233,7 +2237,7 @@ same as deleting a document.`,
 			comment: `A TargetChange_ADD response must have the same watch target ID.`,
 			responses: []*fspb.ListenResponse{
 				change(doc1), current,
-				&fspb.ListenResponse{ResponseType: &fspb.ListenResponse_TargetChange{&fspb.TargetChange{
+				{ResponseType: &fspb.ListenResponse_TargetChange{&fspb.TargetChange{
 					TargetChangeType: fspb.TargetChange_ADD,
 					TargetIds:        []int32{watchTargetID},
 					ReadTime:         ts(2),
@@ -2255,7 +2259,7 @@ same as deleting a document.`,
 			comment: `A TargetChange_ADD response must have the same watch target ID.`,
 			responses: []*fspb.ListenResponse{
 				change(doc1), current,
-				&fspb.ListenResponse{ResponseType: &fspb.ListenResponse_TargetChange{&fspb.TargetChange{
+				{ResponseType: &fspb.ListenResponse_TargetChange{&fspb.TargetChange{
 					TargetChangeType: fspb.TargetChange_ADD,
 					TargetIds:        []int32{watchTargetID + 1},
 					ReadTime:         ts(2),
@@ -2270,7 +2274,7 @@ same as deleting a document.`,
 			comment: `A TargetChange_REMOVE response should never be sent.`,
 			responses: []*fspb.ListenResponse{
 				change(doc1), current,
-				&fspb.ListenResponse{ResponseType: &fspb.ListenResponse_TargetChange{&fspb.TargetChange{
+				{ResponseType: &fspb.ListenResponse_TargetChange{&fspb.TargetChange{
 					TargetChangeType: fspb.TargetChange_REMOVE,
 				}}},
 				noChange(ts(1)),
@@ -2280,6 +2284,7 @@ same as deleting a document.`,
 	} {
 		tp := &tpb.Test{
 			Description: "listen: " + test.desc,
+			Comment:     test.comment,
 			Test: &tpb.Test_Listen{&tpb.ListenTest{
 				Responses: test.responses,
 				Snapshots: test.snapshots,
@@ -2287,7 +2292,7 @@ same as deleting a document.`,
 			}},
 		}
 		suite.Tests = append(suite.Tests, tp)
-		outputTestText(fmt.Sprintf("listen-%s", test.suffix), test.comment, tp)
+		outputTestText(fmt.Sprintf("listen-%s", test.suffix), tp)
 	}
 }
 
@@ -2351,7 +2356,7 @@ func unaryFilter(field string, op fspb.StructuredQuery_UnaryFilter_Operator) *fs
 
 var filenames = map[string]bool{}
 
-func outputTestText(filename, comment string, t *tpb.Test) {
+func outputTestText(filename string, t *tpb.Test) {
 	if strings.HasSuffix(filename, "-") {
 		log.Fatalf("test %q missing suffix", t.Description)
 	}
@@ -2362,31 +2367,11 @@ func outputTestText(filename, comment string, t *tpb.Test) {
 		log.Fatalf("duplicate filename %q", filename)
 	}
 	filenames[filename] = true
-	basename := filepath.Join(*outputDir, filename+".textproto")
-	if err := writeTestToFile(basename, comment, t); err != nil {
+	basename := filepath.Join(*outputDir, filename+".json")
+	if err := writeProtoToFile(basename, t); err != nil {
 		log.Fatalf("writing test: %v", err)
 	}
 	nTests++
-}
-
-func writeTestToFile(pathname, comment string, t *tpb.Test) (err error) {
-	f, err := os.Create(pathname)
-	if err != nil {
-		return err
-	}
-	defer func() {
-		err2 := f.Close()
-		if err == nil {
-			err = err2
-		}
-	}()
-
-	fmt.Fprintln(f, "# DO NOT MODIFY. This file was generated by")
-	fmt.Fprintln(f, "# github.com/GoogleCloudPlatform/google-cloud-common/testing/firestore/cmd/generate-firestore-tests/generate-firestore-tests.go.")
-	fmt.Fprintln(f)
-	doc.ToText(f, comment, "# ", "#    ", 80)
-	fmt.Fprintln(f)
-	return proto.MarshalText(f, t)
 }
 
 func writeProtoToFile(filename string, p proto.Message) (err error) {
@@ -2400,12 +2385,8 @@ func writeProtoToFile(filename string, p proto.Message) (err error) {
 			err = err2
 		}
 	}()
-	bytes, err := proto.Marshal(p)
-	if err != nil {
-		return err
-	}
-	_, err = f.Write(bytes)
-	return err
+	m := &jsonpb.Marshaler{}
+	return m.Marshal(f, p)
 }
 
 // mp returns a map. Each odd element is a key, and the next (even) element is its
