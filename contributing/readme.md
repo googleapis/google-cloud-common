@@ -73,7 +73,7 @@ The following is a high-level overview of how to contribute to a Google Cloud cl
 
 1. Run the tests again.
 
-1. Commit your code. Take a moment to write a [good commit message](http://tbaggery.com/2008/04/19/a-note-about-git-commit-messages.html). If you end up with several commits for one logical change, [squash](https://git-scm.com/book/en/v2/Git-Tools-Rewriting-History#Squashing-Commits) these commits for clarity.
+1. Commit your code. Take a moment to write a [good commit message](http://tbaggery.com/2008/04/19/a-note-about-git-commit-messages.html). We use [Conventional Commits](https://www.conventionalcommits.org/) as a convention for writing commit messages. It provides an easy set of rules for creating an explicit commit history. If you end up with several commits for one logical change, [squash](https://git-scm.com/book/en/v2/Git-Tools-Rewriting-History#Squashing-Commits) these commits for clarity.
 
 1. On GitHub, [create a fork](https://guides.github.com/activities/forking/) of the project.
 
